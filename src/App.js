@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import ParticlesBg from "particles-bg";
 import "./App.css";
-import Password from "./containers/Password.js/password";
-import PSUpperCase from "./containers/PasswordUppercase/PSUpperCase";
-import PSLength from "./containers/PasswordLength/PSLength";
-import PSSpecialCharacter from "./containers/PasswordSpecialCharacters/PSSpecialCharacters";
+import {
+  Password,
+  PUpperCase,
+  PSpecialCharacter,
+  PSLength,
+} from "./Password/password";
+
 const characters = "abcdefghijklmnopqrstuvwxyz";
 const specialCharacters = "~!@#$%^&*";
 
@@ -12,8 +15,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      upperCase: "off",
-      specialCharacter: "",
+      upperCase: false,
+      specialCharacter: false,
       length: "",
       Password: "",
     };
@@ -25,59 +28,65 @@ class App extends Component {
   };
 
   onuppercasechange = (e) => {
-    var upperCase = e.target.value;
-    this.setState({ upperCase: upperCase });
+    this.setState({ upperCase: true });
     console.log(this.state.upperCase);
   };
 
   onspecialchange = (e) => {
-    var specialCharacter = e.target.value;
-    this.setState({ specialCharacter: specialCharacter });
+    let specialCharacter = e.target.value;
+    this.setState({ specialCharacter });
   };
 
   onbuttonClick = () => {
-    var password = "";
-    var check = Math.floor(Math.random() * 5);
+    let password = "";
+    let check = Math.floor(Math.random() * 5);
     const charactersLength = characters.length;
     const specialCharactersLength = specialCharacters.length;
-    for (var i = 0; i < this.length; i++) {
+
+    for (let i = 0; i < this.length; i++) {
       password += characters.charAt(
         Math.floor(Math.random() * charactersLength)
       );
 
-      for (i; i < password.length; i++) {
-        var randomletters = password.charAt(
+      for (let j = 0; j < this.length; j++) {
+        var randomCapitalLetters = password.charAt(
           Math.floor(Math.random() * password.length)
         );
       }
       if (
         password.match(/[a-z]/i) &&
         check > 0 &&
-        this.state.upperCase === "on" &&
-        this.state.specialCharacter === "on"
+        this.state.upperCase === true &&
+        this.state.specialCharacter === true
       ) {
-        for (i; i < this.length; i++)
+        for (let l = 0; l < this.length; l++)
           password += specialCharacters.charAt(
             Math.floor(Math.random() * specialCharactersLength)
           );
-        password = password + randomletters.toUpperCase();
+        password = password.replace(
+          randomCapitalLetters,
+          randomCapitalLetters.toUpperCase()
+        );
         check--;
       } else if (
         password.match(/[a-z]/i) &&
         check > 0 &&
-        this.state.upperCase === "on"
+        this.state.upperCase === true
       ) {
-        password = password + randomletters.toUpperCase();
+        password = password.replace(
+          randomCapitalLetters,
+          randomCapitalLetters.toUpperCase()
+        );
       } else if (
         password.match(/[a-z]/i) &&
         check > 0 &&
-        this.state.specialCharacter === "on"
+        this.state.specialCharacter === true
       ) {
-        for (var i = 0; i < password.length; i++)
+        for (let m = 0; m < password.length; m++)
           var passwordspecial = specialCharacters.charAt(
             Math.floor(Math.random() * specialCharactersLength)
           );
-        password = password + passwordspecial;
+        password = password.replace(randomCapitalLetters, passwordspecial);
       }
     }
     this.setState({ Password: password });
@@ -88,11 +97,11 @@ class App extends Component {
     return (
       <div>
         <h1 className="password">{this.state.Password}</h1>
-        <ParticlesBg type="fountain" bg={true} />
+        <ParticlesBg type="web" bg={true} />
         <Password onbuttonClick={this.onbuttonClick} />
         <PSLength onLengthSelection={this.onLengthSelection} />
-        <PSUpperCase onuppercasechange={this.onuppercasechange} />
-        <PSSpecialCharacter onspecialchange={this.onspecialchange} />
+        <PUpperCase onuppercasechange={this.onuppercasechange} />
+        <PSpecialCharacter onspecialchange={this.onspecialchange} />
       </div>
     );
   }

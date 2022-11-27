@@ -62,39 +62,18 @@
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
-.lengthdiv {
+.centerDiv {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.lengthinput {
+.centerInput {
   display: flex;
   justify-content: center;
   height: fit-content;
   margin-left: 10px;
 }
-.PWSCdiv {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.PWSCinput {
-  display: flex;
-  justify-content: center;
-  height: fit-content;
-  margin-left: 10px;
-}
-.PWUCdiv {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.PWUCinput {
-  display: flex;
-  justify-content: center;
-  height: fit-content;
-  margin-left: 10px;
-}
+
 p {
   font-size: 1.5rem;
 }
